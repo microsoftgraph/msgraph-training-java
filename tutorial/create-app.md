@@ -65,7 +65,8 @@ public class App {
         while (choice != 0) {
             System.out.println("Please choose one of the following options:");
             System.out.println("0. Exit");
-            System.out.println("1. List calendar events");
+            System.out.println("1. Display access token");
+            System.out.println("2. List calendar events");
 
             try {
                 choice = input.nextInt();
@@ -81,8 +82,9 @@ public class App {
                     System.out.println("Goodbye...");
                     break;
                 case 1:
+                    // Display access token
+                case 2:
                     // List the calendar
-                    // TODO
                     break;
                 default:
                     System.out.println("Invalid choice");
