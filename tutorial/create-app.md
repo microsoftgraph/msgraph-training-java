@@ -20,10 +20,17 @@ If it works, the app should output `Hello World!`. Before moving on, add some ad
 
 - [Microsoft Authentication Library (MSAL) for Java](https://github.com/AzureAD/microsoft-authentication-library-for-java) to authenticate the user and acquire access tokens.
 - [Microsoft Graph SDK for Java](https://github.com/microsoftgraph/msgraph-sdk-java) to make calls to the Microsoft Graph.
+- [SLF4J NOP Binding](https://mvnrepository.com/artifact/org.slf4j/slf4j-nop) to suppress logging from MSAL.
 
 Open **./graphtutorial/pom.xml**. Add the following inside the `<dependencies>` element.
 
 ```xml
+<dependency>
+  <groupId>org.slf4j</groupId>
+  <artifactId>slf4j-nop</artifactId>
+  <version>1.8.0-beta4</version>
+</dependency>
+
 <dependency>
   <groupId>com.microsoft.graph</groupId>
   <artifactId>microsoft-graph</artifactId>
