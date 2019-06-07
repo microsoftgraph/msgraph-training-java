@@ -38,3 +38,60 @@ Open **./graphtutorial/pom.xml**. Add the following inside the `<dependencies>` 
 ```
 
 The next time you build the project, Maven will download those dependencies.
+
+## Design the app
+
+Open the **./graphtutorial/src/main/java/com/contoso/App.java** file and replace its contents with the following.
+
+```java
+package com.contoso;
+
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
+/**
+ * Graph Tutorial
+ *
+ */
+public class App {
+    public static void main(String[] args) {
+        System.out.println("Java Graph Tutorial");
+        System.out.println();
+
+        Scanner input = new Scanner(System.in);
+
+        int choice = -1;
+
+        while (choice != 0) {
+            System.out.println("Please choose one of the following options:");
+            System.out.println("0. Exit");
+            System.out.println("1. List calendar events");
+
+            try {
+                choice = input.nextInt();
+            } catch (InputMismatchException ex) {
+                // Skip over non-integer input
+                input.nextLine();
+            }
+
+            // Process user choice
+            switch(choice) {
+                case 0:
+                    // Exit the program
+                    System.out.println("Goodbye...");
+                    break;
+                case 1:
+                    // List the calendar
+                    // TODO
+                    break;
+                default:
+                    System.out.println("Invalid choice");
+            }
+        }
+
+        input.close();
+    }
+}
+```
+
+This implements a basic menu and reads the user's choice from the command line.
