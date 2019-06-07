@@ -13,3 +13,5 @@ buildNumber.properties
 
 # VS Code
 .vscode/
+
+oauth.properties
