@@ -1,3 +1,5 @@
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License.
 package com.contoso;
 import java.net.MalformedURLException;
 import java.util.Set;
