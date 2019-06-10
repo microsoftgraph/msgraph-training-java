@@ -131,7 +131,7 @@ Build and run the app. The application displays a URL and device code.
 ```Shell
 Java Graph Tutorial
 
-To sign in, use a web browser to open the page https://microsoft.com/devicelogin and enter the code F7CG9WMGF to authenticate.
+To sign in, use a web browser to open the page https://microsoft.com/devicelogin and enter the code F7CG945YZ to authenticate.
 ```
 
 Open a browser and browse to the URL displayed. Enter the provided code and sign in. Once completed, return to the application and choose the **1. Display access token** option to display the access token.
