@@ -39,6 +39,7 @@ public class App {
                     break;
                 case 1:
                     // Display access token
+                    break;
                 case 2:
                     // List the calendar
                     break;

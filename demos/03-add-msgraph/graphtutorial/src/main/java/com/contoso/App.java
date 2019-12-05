@@ -71,6 +71,7 @@ public class App {
                 case 1:
                     // Display access token
                     System.out.println("Access token: " + accessToken);
+                    break;
                 case 2:
                     // List the calendar
                     listCalendarEvents(accessToken);
