@@ -34,13 +34,13 @@ Open **./graphtutorial/pom.xml**. Add the following inside the `<dependencies>` 
 <dependency>
   <groupId>com.microsoft.graph</groupId>
   <artifactId>microsoft-graph</artifactId>
-  <version>1.4.0</version>
+  <version>1.6.0</version>
 </dependency>
 
 <dependency>
   <groupId>com.microsoft.azure</groupId>
   <artifactId>msal4j</artifactId>
-  <version>0.4.0-preview</version>
+  <version>1.1.0</version>
 </dependency>
 ```
 
@@ -90,6 +90,7 @@ public class App {
                     break;
                 case 1:
                     // Display access token
+                    break;
                 case 2:
                     // List the calendar
                     break;

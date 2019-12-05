@@ -2,7 +2,7 @@
 
 In this exercise you will extend the application from the previous exercise to support authentication with Azure AD. This is required to obtain the necessary OAuth access token to call the Microsoft Graph. In this step you will integrate the [Microsoft Authentication Library (MSAL) for Java](https://github.com/AzureAD/microsoft-authentication-library-for-java) into the application.
 
-Create a new file in the **./graphtutorial/src/main/java/com/contoso** directory named **oAuth.properties**. Add the following text in that file.
+Create a new directory named **resources** in the **./graphtutorial/src/main** directory. Then create a new directory named **com** in the **resources** directory, then a new directory named **contoso** in the **com** directory. Finally, create a new file in the **./graphtutorial/src/main/resources/com/contoso** directory named **oAuth.properties**, and add the following text in that file.
 
 ```INI
 app.id=YOUR_APP_ID_HERE
@@ -60,7 +60,7 @@ public class Authentication {
     private static String applicationId;
     // Set authority to allow only organizational accounts
     // Device code flow only supports organizational accounts
-    private final static String authority = "https://login.microsoftonline.com/organizations/";
+    private final static String authority = "https://login.microsoftonline.com/common/";
 
     public static void initialize(String applicationId) {
         Authentication.applicationId = applicationId;
