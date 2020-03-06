@@ -46,6 +46,8 @@ package com.contoso;
 import java.net.MalformedURLException;
 import java.util.Set;
 import java.util.function.Consumer;
+import java.util.Collection;
+import java.util.Arrays;
 
 import com.microsoft.aad.msal4j.DeviceCode;
 import com.microsoft.aad.msal4j.DeviceCodeFlowParameters;
@@ -72,7 +74,8 @@ public class Authentication {
             return null;
         }
 
-        Set<String> scopeSet = Set.of(scopes);
+        Set<String> scopeSet = new HashSet<>();
+        Collections.addAll(scopeSet, Arrays.toString(scopes));
 
         PublicClientApplication app;
         try {
