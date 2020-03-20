@@ -13,11 +13,15 @@ In this section you'll create a basic Java console app.
 
     When prompted, confirm the configuration, then wait for the project to be created.
 
+1. Open **./graphtutorial/pom.xml** and update the `maven.compiler.source` and `maven.compiler.target` values to match your version of Java.
+
+    :::code language="xml" source="../demo/graphtutorial/pom.xml" id="JavaVersionSnippet" highlight="3-4":::
+
 1. Once the project is created, verify that it works by changing to the `graphtutorial` directory and running the following commands to package and run the app in your CLI.
 
     ```Shell
     mvn package
-    java -cp target/graphtutorial-1.0-SNAPSHOT.jar com.contoso.App
+    mvn exec:java -D exec.mainClass="com.contoso.App"
     ```
 
     If it works, the app should output `Hello World!`.
