@@ -6,6 +6,8 @@ package com.contoso;
 
 import java.net.MalformedURLException;
 import java.util.Set;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.function.Consumer;
 
 import com.microsoft.aad.msal4j.DeviceCode;
@@ -35,12 +37,14 @@ public class Authentication {
 
         Set<String> scopeSet = Set.of(scopes);
 
+        ExecutorService pool = Executors.newFixedThreadPool(1);
         PublicClientApplication app;
         try {
             // Build the MSAL application object with
             // app ID and authority
             app = PublicClientApplication.builder(applicationId)
                 .authority(authority)
+                .executorService(pool)
                 .build();
         } catch (MalformedURLException e) {
             return null;
@@ -63,6 +67,8 @@ public class Authentication {
             System.out.println("Unable to authenticate - " + ex.getMessage());
             return null;
         }).join();
+
+        pool.shutdown();
 
         if (result != null) {
             return result.accessToken();
