@@ -10,7 +10,7 @@ This tutorial teaches you how to build a Java console app that uses the Microsof
 Before you start this tutorial, you should have the [Java SE Development Kit (JDK)](https://java.com/en/download/faq/develop.xml) and [Maven](https://maven.apache.org/) installed on your development machine. If you do not have the JDK or Maven, visit the previous links for download options.
 
 > [!NOTE]
-> This tutorial was written with OpenJDK version 12.0.1 and Maven 3.6.1. The steps in this guide may work with other versions, but that has not been tested.
+> This tutorial was written with OpenJDK version 14.0.0.36 and Maven 3.6.3. The steps in this guide may work with other versions, but that has not been tested.
 
 ## Feedback
 
