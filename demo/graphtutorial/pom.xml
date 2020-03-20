@@ -25,6 +25,26 @@
       <version>4.11</version>
       <scope>test</scope>
     </dependency>
+
+    <!-- <PomDependenciesSnippet> -->
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-nop</artifactId>
+      <version>1.8.0-beta4</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.microsoft.graph</groupId>
+      <artifactId>microsoft-graph</artifactId>
+      <version>1.6.0</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.microsoft.azure</groupId>
+      <artifactId>msal4j</artifactId>
+      <version>1.4.0</version>
+    </dependency>
+    <!-- </PomDependenciesSnippet> -->
   </dependencies>
 
   <build>
