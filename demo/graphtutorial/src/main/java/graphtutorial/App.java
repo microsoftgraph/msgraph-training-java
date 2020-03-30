@@ -4,9 +4,17 @@
 package graphtutorial;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Properties;
 import java.util.Scanner;
+
+import com.microsoft.graph.models.extensions.DateTimeTimeZone;
+import com.microsoft.graph.models.extensions.Event;
+import com.microsoft.graph.models.extensions.User;
 
 /**
  * Graph Tutorial
@@ -34,6 +42,11 @@ public class App {
         // Get an access token
         Authentication.initialize(appId);
         final String accessToken = Authentication.getUserAccessToken(appScopes);
+
+        // Greet the user
+        User user = Graph.getUser(accessToken);
+        System.out.println("Welcome " + user.displayName);
+        System.out.println();
 
         Scanner input = new Scanner(System.in);
 
@@ -64,6 +77,7 @@ public class App {
                     break;
                 case 2:
                     // List the calendar
+                    listCalendarEvents(accessToken);
                     break;
                 default:
                     System.out.println("Invalid choice");
@@ -72,4 +86,32 @@ public class App {
 
         input.close();
     }
+
+    // <FormatDateTimeSnippet>
+    private static String formatDateTimeTimeZone(DateTimeTimeZone date) {
+        LocalDateTime dateTime = LocalDateTime.parse(date.dateTime);
+
+        return dateTime.format(
+            DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT)) +
+            " (" + date.timeZone + ")";
+    }
+    // </FormatDateTimeSnippet>
+
+    // <ListEventsSnippet>
+    private static void listCalendarEvents(String accessToken) {
+        // Get the user's events
+        List<Event> events = Graph.getEvents(accessToken);
+
+        System.out.println("Events:");
+
+        for (Event event : events) {
+            System.out.println("Subject: " + event.subject);
+            System.out.println("  Organizer: " + event.organizer.emailAddress.name);
+            System.out.println("  Start: " + formatDateTimeTimeZone(event.start));
+            System.out.println("  End: " + formatDateTimeTimeZone(event.end));
+        }
+
+        System.out.println();
+    }
+    // </ListEventsSnippet>
 }

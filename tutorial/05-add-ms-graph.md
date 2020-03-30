@@ -6,16 +6,16 @@ In this exercise you will incorporate the Microsoft Graph into the application. 
 
 The Microsoft Graph SDK for Java requires an implementation of the `IAuthenticationProvider` interface to instantiate its `GraphServiceClient` object.
 
-1. Create a new file in the **./graphtutorial/src/main/java/com/contoso** directory named **SimpleAuthProvider.java** and add the following code.
+1. Create a new file in the **./graphtutorial/src/main/java/graphtutorial** directory named **SimpleAuthProvider.java** and add the following code.
 
-    :::code language="java" source="../demo/graphtutorial/src/main/java/com/contoso/SimpleAuthProvider.java" id="AuthProviderSnippet":::
+    :::code language="java" source="../demo/graphtutorial/src/main/java/graphtutorial/SimpleAuthProvider.java" id="AuthProviderSnippet":::
 
 ## Get user details
 
-1. Create a new file in the **./graphtutorial/src/main/java/com/contoso** directory named **Graph.java** and add the following code.
+1. Create a new file in the **./graphtutorial/src/main/java/graphtutorial** directory named **Graph.java** and add the following code.
 
     ```java
-    package com.contoso;
+    package graphtutorial;
 
     import java.util.LinkedList;
     import java.util.List;
@@ -84,13 +84,13 @@ The Microsoft Graph SDK for Java requires an implementation of the `IAuthenticat
     System.out.println();
     ```
 
-1. Build and run the app. After you log in the app welcomes you by name.
+1. Run the app. After you log in the app welcomes you by name.
 
 ## Get calendar events from Outlook
 
 1. Add the following function to the `Graph` class in **Graph.java** to get events from the user's calendar.
 
-    :::code language="java" source="../demo/graphtutorial/src/main/java/com/contoso/Graph.java" id="GetEventsSnippet":::
+    :::code language="java" source="../demo/graphtutorial/src/main/java/graphtutorial/Graph.java" id="GetEventsSnippet":::
 
 Consider what this code is doing.
 
@@ -113,11 +113,11 @@ import com.microsoft.graph.models.extensions.Event;
 
 1. Add the following function to the `App` class to format the [dateTimeTimeZone](/graph/api/resources/datetimetimezone?view=graph-rest-1.0) properties from Microsoft Graph into a user-friendly format.
 
-    :::code language="java" source="../demo/graphtutorial/src/main/java/com/contoso/App.java" id="FormatDateTimeSnippet":::
+    :::code language="java" source="../demo/graphtutorial/src/main/java/graphtutorial/App.java" id="FormatDateTimeSnippet":::
 
 1. Add the following function to the `App` class to get the user's events and output them to the console.
 
-    :::code language="java" source="../demo/graphtutorial/src/main/java/com/contoso/App.java" id="ListEventsSnippet":::
+    :::code language="java" source="../demo/graphtutorial/src/main/java/graphtutorial/App.java" id="ListEventsSnippet":::
 
 1. Add the following just after the `// List the calendar` comment in the `main` function.
 
