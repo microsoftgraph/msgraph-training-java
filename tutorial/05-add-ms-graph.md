@@ -102,16 +102,18 @@ Consider what this code is doing.
 
 1. Add the following `import` statements in **App.java**.
 
-```java
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
-import java.util.List;
-import com.microsoft.graph.models.extensions.DateTimeTimeZone;
-import com.microsoft.graph.models.extensions.Event;
-```
+    ```java
+    import java.time.LocalDateTime;
+    import java.time.format.DateTimeFormatter;
+    import java.time.format.FormatStyle;
+    import java.util.List;
+    import com.microsoft.graph.models.extensions.DateTimeTimeZone;
+    import com.microsoft.graph.models.extensions.Event;
+    ```
 
 1. Add the following function to the `App` class to format the [dateTimeTimeZone](/graph/api/resources/datetimetimezone?view=graph-rest-1.0) properties from Microsoft Graph into a user-friendly format.
+
+    :::code language="java" source="../demo/graphtutorial/src/main/java/graphtutorial/App.java" id="FormatDateSnippet":::
 
 1. Add the following function to the `App` class to get the user's events and output them to the console.
 
