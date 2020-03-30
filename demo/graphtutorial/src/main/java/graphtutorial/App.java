@@ -87,7 +87,7 @@ public class App {
         input.close();
     }
 
-    // <FormatDateTimeSnippet>
+    // <FormatDateSnippet>
     private static String formatDateTimeTimeZone(DateTimeTimeZone date) {
         LocalDateTime dateTime = LocalDateTime.parse(date.dateTime);
 
@@ -95,7 +95,7 @@ public class App {
             DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT)) +
             " (" + date.timeZone + ")";
     }
-    // </FormatDateTimeSnippet>
+    // </FormatDateSnippet>
 
     // <ListEventsSnippet>
     private static void listCalendarEvents(String accessToken) {
