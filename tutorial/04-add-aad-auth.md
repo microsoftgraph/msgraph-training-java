@@ -22,7 +22,7 @@ In this exercise you will extend the application from the previous exercise to s
 
 1. Add the following code just before the `Scanner input = new Scanner(System.in);` line to load the **oAuth.properties** file.
 
-    :::code language="java" source="../demo/graphtutorial/src/main/java/com/contoso/App.java" id="LoadSettingsSnippet":::
+    :::code language="java" source="../demo/graphtutorial/src/main/java/graphtutorial/App.java" id="LoadSettingsSnippet":::
 
 ## Implement sign-in
 
