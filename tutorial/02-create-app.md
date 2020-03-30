@@ -2,29 +2,19 @@
 
 In this section you'll create a basic Java console app.
 
-1. Open your command-line interface (CLI) in a directory where you want to create the project. Run the following command to create a new Maven project.
+1. Open your command-line interface (CLI) in a directory where you want to create the project. Run the following command to create a new Gradle project.
 
     ```Shell
-    mvn archetype:generate "-DarchetypeArtifactId=maven-archetype-quickstart" "-DarchetypeGroupId=org.apache.maven.archetypes" "-DgroupId=com.contoso" "-DartifactId=graphtutorial" "-Dversion=1.0-SNAPSHOT"
+    gradle init --dsl groovy --test-framework junit --type java-application --project-name graphtutorial --package graphtutorial
     ```
 
-    > [!IMPORTANT]
-    > You can enter different values for the group ID (`DgroupId` parameter) and artifact ID (`DartifactId` parameter) than the values specified above. The sample code in this tutorial assumes that the group ID `com.contoso` was used. If you use a different value, be sure to replace `com.contoso` in any sample code with your group ID.
-
-    When prompted, confirm the configuration, then wait for the project to be created.
-
-1. Open **./graphtutorial/pom.xml** and update the `maven.compiler.source` and `maven.compiler.target` values to match your version of Java.
-
-    :::code language="xml" source="../demo/graphtutorial/pom.xml" id="JavaVersionSnippet" highlight="3-4":::
-
-1. Once the project is created, verify that it works by changing to the `graphtutorial` directory and running the following commands to package and run the app in your CLI.
+1. Once the project is created, verify that it works by running the following command to run the app in your CLI.
 
     ```Shell
-    mvn package
-    mvn exec:java -D exec.mainClass="com.contoso.App"
+    ./gradlew run
     ```
 
-    If it works, the app should output `Hello World!`.
+    If it works, the app should output `Hello World.`.
 
 ## Install dependencies
 
@@ -34,18 +24,22 @@ Before moving on, add some additional dependencies that you will use later.
 - [Microsoft Graph SDK for Java](https://github.com/microsoftgraph/msgraph-sdk-java) to make calls to the Microsoft Graph.
 - [SLF4J NOP Binding](https://mvnrepository.com/artifact/org.slf4j/slf4j-nop) to suppress logging from MSAL.
 
-1. Open **./graphtutorial/pom.xml**. Add the following inside the `<dependencies>` element.
+1. Open **./build.gradle**. Update the `dependencies` section to add those dependencies.
 
-    :::code language="xml" source="../demo/graphtutorial/pom.xml" id="PomDependenciesSnippet":::
+    :::code language="gradle" source="../demo/graphtutorial/build.gradle" id="DependenciesSnippet" highlight="7-9":::
 
-The next time you build the project, Maven will download those dependencies.
+1. Add the following to the end of **./build.gradle**.
+
+    :::code language="gradle" source="../demo/graphtutorial/build.gradle" id="StandardInputSnippet":::
+
+The next time you build the project, Gradle will download those dependencies.
 
 ## Design the app
 
-1. Open the **./graphtutorial/src/main/java/com/contoso/App.java** file and replace its contents with the following.
+1. Open the **./src/main/java/graphtutorial/App.java** file and replace its contents with the following.
 
     ```java
-    package com.contoso;
+    package graphtutorial;
 
     import java.util.InputMismatchException;
     import java.util.Scanner;
