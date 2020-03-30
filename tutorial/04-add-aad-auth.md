@@ -2,15 +2,11 @@
 
 In this exercise you will extend the application from the previous exercise to support authentication with Azure AD. This is required to obtain the necessary OAuth access token to call the Microsoft Graph. In this step you will integrate the [Microsoft Authentication Library (MSAL) for Java](https://github.com/AzureAD/microsoft-authentication-library-for-java) into the application.
 
-1. Create a new directory named **resources** in the **./graphtutorial/src/main** directory.
+1. Create a new directory named **graphtutorial** in the **./src/main/resources** directory.
 
-1. Create a new directory named **com** in the **resources** directory.
+1. Create a new file in the **./src/main/resources/graphtutorial** directory named **oAuth.properties**, and add the following text in that file.
 
-1. Create a new directory named **contoso** in the **com** directory.
-
-1. Create a new file in the **./graphtutorial/src/main/resources/com/contoso** directory named **oAuth.properties**, and add the following text in that file.
-
-    :::code language="ini" source="../demo/graphtutorial/src/main/resources/com/contoso/oAuth.properties.example":::
+    :::code language="ini" source="../demo/graphtutorial/src/main/resources/graphtutorial/oAuth.properties.example":::
 
     Replace `YOUR_APP_ID_HERE` with the application ID you created in the Azure portal.
 
@@ -30,9 +26,9 @@ In this exercise you will extend the application from the previous exercise to s
 
 ## Implement sign-in
 
-1. Create a new file in the **./graphtutorial/src/main/java/com/contoso** directory named **Authentication.java** and add the following code.
+1. Create a new file in the **./graphtutorial/src/main/java/graphtutorial** directory named **Authentication.java** and add the following code.
 
-    :::code language="java" source="../demo/graphtutorial/src/main/java/com/contoso/Authentication.java" id="AuthenticationSnippet":::
+    :::code language="java" source="../demo/graphtutorial/src/main/java/graphtutorial/Authentication.java" id="AuthenticationSnippet":::
 
 1. In **App.java**, add the following code just before the `Scanner input = new Scanner(System.in);` line to get an access token.
 
@@ -48,7 +44,7 @@ In this exercise you will extend the application from the previous exercise to s
     System.out.println("Access token: " + accessToken);
     ```
 
-1. Build and run the app. The application displays a URL and device code.
+1. Run the app. The application displays a URL and device code.
 
     ```Shell
     Java Graph Tutorial

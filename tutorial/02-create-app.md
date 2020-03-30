@@ -11,7 +11,7 @@ In this section you'll create a basic Java console app.
 1. Once the project is created, verify that it works by running the following command to run the app in your CLI.
 
     ```Shell
-    ./gradlew run
+    ./gradlew --console plain run
     ```
 
     If it works, the app should output `Hello World.`.

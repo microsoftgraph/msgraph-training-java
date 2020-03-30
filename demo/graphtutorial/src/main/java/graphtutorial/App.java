@@ -3,7 +3,9 @@
 
 package graphtutorial;
 
+import java.io.IOException;
 import java.util.InputMismatchException;
+import java.util.Properties;
 import java.util.Scanner;
 
 /**
@@ -14,6 +16,24 @@ public class App {
     public static void main(String[] args) {
         System.out.println("Java Graph Tutorial");
         System.out.println();
+
+        // <LoadSettingsSnippet>
+        // Load OAuth settings
+        final Properties oAuthProperties = new Properties();
+        try {
+            oAuthProperties.load(App.class.getResourceAsStream("oAuth.properties"));
+        } catch (IOException e) {
+            System.out.println("Unable to read OAuth configuration. Make sure you have a properly formatted oAuth.properties file. See README for details.");
+            return;
+        }
+
+        final String appId = oAuthProperties.getProperty("app.id");
+        final String[] appScopes = oAuthProperties.getProperty("app.scopes").split(",");
+        // </LoadSettingsSnippet>
+
+        // Get an access token
+        Authentication.initialize(appId);
+        final String accessToken = Authentication.getUserAccessToken(appScopes);
 
         Scanner input = new Scanner(System.in);
 
@@ -40,6 +60,7 @@ public class App {
                     break;
                 case 1:
                     // Display access token
+                    System.out.println("Access token: " + accessToken);
                     break;
                 case 2:
                     // List the calendar
