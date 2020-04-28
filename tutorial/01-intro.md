@@ -7,7 +7,7 @@ This tutorial teaches you how to build a Java console app that uses the Microsof
 
 ## Prerequisites
 
-Before you start this tutorial, you should have the [Java SE Development Kit (JDK)](https://java.com/en/download/faq/develop.xml) and [Gradle](https://gradle.org/) installed on your development machine. If you do not have the JDK or Maven, visit the previous links for download options.
+Before you start this tutorial, you should have the [Java SE Development Kit (JDK)](https://java.com/en/download/faq/develop.xml) and [Gradle](https://gradle.org/) installed on your development machine. If you do not have the JDK or Gradle, visit the previous links for download options.
 
 You should also have either a personal Microsoft account with a mailbox on Outlook.com, or a Microsoft work or school account. If you don't have a Microsoft account, there are a couple of options to get a free account:
 
