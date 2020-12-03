@@ -4,7 +4,7 @@
 
 To run the completed project in this folder, you need the following:
 
-- [Java SE Development Kit (JDK)](https://java.com/en/download/faq/develop.xml) and [Gradle](https://gradle.org/) installed on your development machine. If you do not have the JDK or Gradle, visit the previous links for download options. (**Note:** This tutorial was written with OpenJDK version 14.0.0.36 and Gradle 6.3. The steps in this guide may work with other versions, but that has not been tested.)
+- [Java SE Development Kit (JDK)](https://java.com/en/download/faq/develop.xml) and [Gradle](https://gradle.org/) installed on your development machine. If you do not have the JDK or Gradle, visit the previous links for download options. (**Note:** This tutorial was written with OpenJDK version 14.0.0.36 and Gradle 6.7.1. The steps in this guide may work with other versions, but that has not been tested.)
 - A Microsoft work or school account.
 
 If you don't have a Microsoft account, you can [sign up for the Office 365 Developer Program](https://developer.microsoft.com/office/dev-program) to get a free Office 365 subscription.

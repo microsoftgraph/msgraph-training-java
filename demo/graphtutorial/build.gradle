@@ -27,8 +27,8 @@ dependencies {
 
     // Use JUnit test framework
     testImplementation 'junit:junit:4.12'
-    implementation 'com.microsoft.azure:msal4j:1.7.1'
-    implementation 'com.microsoft.graph:microsoft-graph:2.3.1'
+    implementation 'com.microsoft.azure:msal4j:1.8.0'
+    implementation 'com.microsoft.graph:microsoft-graph:2.4.1'
     implementation 'org.slf4j:slf4j-nop:1.8.0-beta4'
 }
 // </DependenciesSnippet>

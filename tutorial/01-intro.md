@@ -15,7 +15,7 @@ You should also have either a personal Microsoft account with a mailbox on Outlo
 - You can [sign up for the Office 365 Developer Program](https://developer.microsoft.com/office/dev-program) to get a free Office 365 subscription.
 
 > [!NOTE]
-> This tutorial was written with OpenJDK version 14.0.0.36 and Gradle 6.3. The steps in this guide may work with other versions, but that has not been tested.
+> This tutorial was written with OpenJDK version 14.0.0.36 and Gradle 6.7.1. The steps in this guide may work with other versions, but that has not been tested.
 
 ## Feedback
 
