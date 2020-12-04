@@ -1,2 +1,2 @@
 app.id=YOUR_APP_ID_HERE
-app.scopes=User.Read,Calendars.Read
+app.scopes=User.Read,MailboxSettings.Read,Calendars.ReadWrite
