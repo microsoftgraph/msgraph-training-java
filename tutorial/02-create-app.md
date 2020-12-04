@@ -61,7 +61,8 @@ The next time you build the project, Gradle will download those dependencies.
                 System.out.println("Please choose one of the following options:");
                 System.out.println("0. Exit");
                 System.out.println("1. Display access token");
-                System.out.println("2. List calendar events");
+                System.out.println("2. View this week's calendar");
+                System.out.println("3. Add an event");
 
                 try {
                     choice = input.nextInt();
@@ -81,6 +82,9 @@ The next time you build the project, Gradle will download those dependencies.
                         break;
                     case 2:
                         // List the calendar
+                        break;
+                    case 3:
+                        // Create a new event
                         break;
                     default:
                         System.out.println("Invalid choice");
