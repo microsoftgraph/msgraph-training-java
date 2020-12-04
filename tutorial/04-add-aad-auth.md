@@ -57,3 +57,6 @@ In this exercise you will extend the application from the previous exercise to s
     ```
 
 1. Open a browser and browse to the URL displayed. Enter the provided code and sign in. Once completed, return to the application and choose the **1. Display access token** option to display the access token.
+
+> [!TIP]
+> Access tokens for Microsoft work or school accounts can be parsed for troubleshooting purposes at [https://jwt.ms](https://jwt.ms). Access tokens for personal Microsoft accounts use a proprietary format and cannot be parsed.
