@@ -17,6 +17,8 @@ The Microsoft Graph SDK for Java requires an implementation of the `IAuthenticat
     ```java
     package graphtutorial;
 
+    import java.time.ZonedDateTime;
+    import java.time.format.DateTimeFormatter;
     import java.util.LinkedList;
     import java.util.List;
 
@@ -25,10 +27,12 @@ The Microsoft Graph SDK for Java requires an implementation of the `IAuthenticat
     import com.microsoft.graph.models.extensions.Event;
     import com.microsoft.graph.models.extensions.IGraphServiceClient;
     import com.microsoft.graph.models.extensions.User;
+    import com.microsoft.graph.options.HeaderOption;
     import com.microsoft.graph.options.Option;
     import com.microsoft.graph.options.QueryOption;
     import com.microsoft.graph.requests.extensions.GraphServiceClient;
     import com.microsoft.graph.requests.extensions.IEventCollectionPage;
+    import com.microsoft.graph.requests.extensions.IEventCollectionRequestBuilder;
 
     /**
      * Graph
@@ -62,6 +66,7 @@ The Microsoft Graph SDK for Java requires an implementation of the `IAuthenticat
             User me = graphClient
                 .me()
                 .buildRequest()
+                .select("displayName,mailboxSettings")
                 .get();
 
             return me;
@@ -81,6 +86,7 @@ The Microsoft Graph SDK for Java requires an implementation of the `IAuthenticat
     // Greet the user
     User user = Graph.getUser(accessToken);
     System.out.println("Welcome " + user.displayName);
+    System.out.println("Time zone: " + user.mailboxSettings.timeZone);
     System.out.println();
     ```
 
@@ -94,18 +100,33 @@ The Microsoft Graph SDK for Java requires an implementation of the `IAuthenticat
 
 Consider what this code is doing.
 
-- The URL that will be called is `/me/events`.
-- The `select` function limits the fields returned for each event to just those the app will actually use.
-- A `QueryOption` is used to sort the results by the date and time they were created, with the most recent item being first.
+- The URL that will be called is `/me/calendarview`.
+  - `QueryOption` objects are used to add the `startDateTime` and `endDateTime` parameters, setting the start and end of the calendar view.
+  - A `QueryOption` object is used to add the `$orderby` parameter, sorting the results by start time.
+  - A `HeaderOption` object is used to add the `Prefer: outlook.timezone` header, causing the start and end times to be adjusted to the user's time zone.
+  - The `select` function limits the fields returned for each event to just those the app will actually use.
+  - The `top` function limits the number of events in the response to a maximum of 25.
+- The `getNextPage` function is used to request additional pages of results if there are more than 25 events in the current week.
+
+1. Create a new file in the **./graphtutorial/src/main/java/graphtutorial** directory named **GraphToIana.java** and add the following code.
+
+    :::code language="java" source="../demo/graphtutorial/src/main/java/graphtutorial/GraphToIana.java" id="zoneMappingsSnippet":::
+
+    This class implements a simple lookup to convert Windows time zone names to IANA identifiers, and to generate a **ZoneId** based on a Windows time zone name.
 
 ## Display the results
 
 1. Add the following `import` statements in **App.java**.
 
     ```java
+    import java.time.DayOfWeek;
     import java.time.LocalDateTime;
+    import java.time.ZoneId;
+    import java.time.ZonedDateTime;
     import java.time.format.DateTimeFormatter;
     import java.time.format.FormatStyle;
+    import java.time.temporal.ChronoUnit;
+    import java.time.temporal.TemporalAdjusters;
     import java.util.List;
     import com.microsoft.graph.models.extensions.DateTimeTimeZone;
     import com.microsoft.graph.models.extensions.Event;
@@ -133,7 +154,8 @@ Consider what this code is doing.
     Please choose one of the following options:
     0. Exit
     1. Display access token
-    2. List calendar events
+    2. View this week's calendar
+    3. Add an event
     2
     Events:
     Subject: Team meeting

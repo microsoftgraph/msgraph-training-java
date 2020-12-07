@@ -4,9 +4,14 @@
 package graphtutorial;
 
 import java.io.IOException;
+import java.time.DayOfWeek;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalAdjusters;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Properties;
@@ -46,6 +51,7 @@ public class App {
         // Greet the user
         User user = Graph.getUser(accessToken);
         System.out.println("Welcome " + user.displayName);
+        System.out.println("Time zone: " + user.mailboxSettings.timeZone);
         System.out.println();
 
         Scanner input = new Scanner(System.in);
@@ -78,7 +84,7 @@ public class App {
                     break;
                 case 2:
                     // List the calendar
-                    listCalendarEvents(accessToken);
+                    listCalendarEvents(accessToken, user.mailboxSettings.timeZone);
                     break;
                 case 3:
                     // Create a new event
@@ -102,9 +108,22 @@ public class App {
     // </FormatDateSnippet>
 
     // <ListEventsSnippet>
-    private static void listCalendarEvents(String accessToken) {
+    private static void listCalendarEvents(String accessToken, String timeZone) {
+        ZoneId tzId = GraphToIana.getZoneIdFromWindows("Pacific Standard Time");
+
+        // Get midnight of the first day of the week (assumed Sunday)
+        // in the user's timezone, then convert to UTC
+        ZonedDateTime startOfWeek = ZonedDateTime.now(tzId)
+            .with(TemporalAdjusters.previousOrSame(DayOfWeek.SUNDAY))
+            .truncatedTo(ChronoUnit.DAYS)
+            .withZoneSameInstant(ZoneId.of("UTC"));
+
+        // Add 7 days to get the end of the week
+        ZonedDateTime endOfWeek = startOfWeek.plusDays(7);
+
         // Get the user's events
-        List<Event> events = Graph.getEvents(accessToken);
+        List<Event> events = Graph.getCalendarView(accessToken,
+            startOfWeek, endOfWeek, timeZone);
 
         System.out.println("Events:");
 
