@@ -68,8 +68,9 @@ The next time you build the project, Gradle will download those dependencies.
                     choice = input.nextInt();
                 } catch (InputMismatchException ex) {
                     // Skip over non-integer input
-                    input.nextLine();
                 }
+
+                input.nextLine();
 
                 // Process user choice
                 switch(choice) {

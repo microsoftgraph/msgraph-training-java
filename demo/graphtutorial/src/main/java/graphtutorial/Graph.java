@@ -3,16 +3,24 @@
 
 package graphtutorial;
 
+import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import com.microsoft.graph.logger.DefaultLogger;
 import com.microsoft.graph.logger.LoggerLevel;
+import com.microsoft.graph.models.extensions.Attendee;
+import com.microsoft.graph.models.extensions.DateTimeTimeZone;
+import com.microsoft.graph.models.extensions.EmailAddress;
 import com.microsoft.graph.models.extensions.Event;
 import com.microsoft.graph.models.extensions.IGraphServiceClient;
+import com.microsoft.graph.models.extensions.ItemBody;
 import com.microsoft.graph.models.extensions.User;
+import com.microsoft.graph.models.generated.AttendeeType;
+import com.microsoft.graph.models.generated.BodyType;
 import com.microsoft.graph.options.HeaderOption;
 import com.microsoft.graph.options.Option;
 import com.microsoft.graph.options.QueryOption;
@@ -107,4 +115,57 @@ public class Graph {
         return allEvents;
     }
     // </GetEventsSnippet>
+
+    // <CreateEventSnippet>
+    public static void createEvent(
+        String accessToken,
+        String timeZone,
+        String subject,
+        LocalDateTime start,
+        LocalDateTime end,
+        Set<String> attendees,
+        String body)
+    {
+        ensureGraphClient(accessToken);
+
+        Event newEvent = new Event();
+
+        newEvent.subject = subject;
+
+        newEvent.start = new DateTimeTimeZone();
+        newEvent.start.dateTime = start.toString();
+        newEvent.start.timeZone = timeZone;
+
+        newEvent.end = new DateTimeTimeZone();
+        newEvent.end.dateTime = end.toString();
+        newEvent.end.timeZone = timeZone;
+
+        if (attendees != null && !attendees.isEmpty()) {
+            newEvent.attendees = new LinkedList<Attendee>();
+
+            attendees.forEach((email) -> {
+                Attendee attendee = new Attendee();
+                // Set each attendee as required
+                attendee.type = AttendeeType.REQUIRED;
+                attendee.emailAddress = new EmailAddress();
+                attendee.emailAddress.address = email;
+                newEvent.attendees.add(attendee);
+            });
+        }
+
+        if (body != null) {
+            newEvent.body = new ItemBody();
+            newEvent.body.content = body;
+            // Treat body as plain text
+            newEvent.body.contentType = BodyType.TEXT;
+        }
+
+        // POST /me/events
+        graphClient
+            .me()
+            .events()
+            .buildRequest()
+            .post(newEvent);
+    }
+    // </CreateEventSnippet>
 }
