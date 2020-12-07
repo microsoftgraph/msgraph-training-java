@@ -4,11 +4,15 @@ In this exercise you will extend the application from the previous exercise to s
 
 1. Create a new directory named **graphtutorial** in the **./src/main/resources** directory.
 
-1. Create a new file in the **./src/main/resources/graphtutorial** directory named **oAuth.properties**, and add the following text in that file.
+1. Create a new file in the **./src/main/resources/graphtutorial** directory named **oAuth.properties**, and add the following text in that file. Replace `YOUR_APP_ID_HERE` with the application ID you created in the Azure portal.
 
     :::code language="ini" source="../demo/graphtutorial/src/main/resources/graphtutorial/oAuth.properties.example":::
 
-    Replace `YOUR_APP_ID_HERE` with the application ID you created in the Azure portal.
+    The value of `app.scopes` contains the permission scopes the application requires.
+
+    - **User.Read** allows the app to access the user's profile.
+    - **MailboxSettings.Read** allows the app to access settings from the user's mailbox, including the user's configured time zone.
+    - **Calendars.ReadWrite** allows the app to list the user's calendar and add new events to the calendar.
 
     > [!IMPORTANT]
     > If you're using source control such as git, now would be a good time to exclude the **oAuth.properties** file from source control to avoid inadvertently leaking your app ID.
@@ -53,3 +57,6 @@ In this exercise you will extend the application from the previous exercise to s
     ```
 
 1. Open a browser and browse to the URL displayed. Enter the provided code and sign in. Once completed, return to the application and choose the **1. Display access token** option to display the access token.
+
+> [!TIP]
+> Access tokens for Microsoft work or school accounts can be parsed for troubleshooting purposes at [https://jwt.ms](https://jwt.ms). Access tokens for personal Microsoft accounts use a proprietary format and cannot be parsed.
