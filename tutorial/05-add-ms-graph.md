@@ -168,24 +168,48 @@ Consider what this code is doing.
     3. Add an event
     2
     Events:
-    Subject: Team meeting
+    Subject: Weekly meeting
+      Organizer: Lynne Robbins
+      Start: 12/7/20, 2:00 PM (Pacific Standard Time)
+      End: 12/7/20, 3:00 PM (Pacific Standard Time)
+    Subject: Carpool
+      Organizer: Lynne Robbins
+      Start: 12/7/20, 4:00 PM (Pacific Standard Time)
+      End: 12/7/20, 5:30 PM (Pacific Standard Time)
+    Subject: Tailspin Toys Proposal Review + Lunch
+      Organizer: Lidia Holloway
+      Start: 12/8/20, 12:00 PM (Pacific Standard Time)
+      End: 12/8/20, 1:00 PM (Pacific Standard Time)
+    Subject: Project Tailspin
+      Organizer: Lidia Holloway
+      Start: 12/8/20, 3:00 PM (Pacific Standard Time)
+      End: 12/8/20, 4:30 PM (Pacific Standard Time)
+    Subject: Company Meeting
+      Organizer: Christie Cline
+      Start: 12/9/20, 8:30 AM (Pacific Standard Time)
+      End: 12/9/20, 11:00 AM (Pacific Standard Time)
+    Subject: Carpool
+      Organizer: Lynne Robbins
+      Start: 12/9/20, 4:00 PM (Pacific Standard Time)
+      End: 12/9/20, 5:30 PM (Pacific Standard Time)
+    Subject: Project Team Meeting
+      Organizer: Lidia Holloway
+      Start: 12/10/20, 8:00 AM (Pacific Standard Time)
+      End: 12/10/20, 9:30 AM (Pacific Standard Time)
+    Subject: Weekly Marketing Lunch
       Organizer: Adele Vance
-      Start: 5/22/19, 3:00 PM (UTC)
-      End: 5/22/19, 4:00 PM (UTC)
-    Subject: Team Lunch
-      Organizer: Adele Vance
-      Start: 5/24/19, 6:30 PM (UTC)
-      End: 5/24/19, 8:00 PM (UTC)
-    Subject: Flight to Redmond
-      Organizer: Adele Vance
-      Start: 5/26/19, 4:30 PM (UTC)
-      End: 5/26/19, 7:00 PM (UTC)
-    Subject: Let's meet to discuss strategy
-      Organizer: Patti Fernandez
-      Start: 5/27/19, 10:00 PM (UTC)
-      End: 5/27/19, 10:30 PM (UTC)
-    Subject: All-hands meeting
-      Organizer: Adele Vance
-      Start: 5/28/19, 3:30 PM (UTC)
-      End: 5/28/19, 5:00 PM (UTC)
+      Start: 12/10/20, 12:00 PM (Pacific Standard Time)
+      End: 12/10/20, 1:00 PM (Pacific Standard Time)
+    Subject: Project Tailspin
+      Organizer: Lidia Holloway
+      Start: 12/10/20, 3:00 PM (Pacific Standard Time)
+      End: 12/10/20, 4:30 PM (Pacific Standard Time)
+    Subject: Lunch?
+      Organizer: Lynne Robbins
+      Start: 12/11/20, 12:00 PM (Pacific Standard Time)
+      End: 12/11/20, 1:00 PM (Pacific Standard Time)
+    Subject: Friday Unwinder
+      Organizer: Megan Bowen
+      Start: 12/11/20, 4:00 PM (Pacific Standard Time)
+      End: 12/11/20, 5:00 PM (Pacific Standard Time)
     ```
