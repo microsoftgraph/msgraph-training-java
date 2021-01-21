@@ -153,7 +153,7 @@ Consider what this code is doing.
 1. Add the following just after the `// List the calendar` comment in the `main` function.
 
     ```java
-    listCalendarEvents(accessToken);
+    listCalendarEvents(accessToken, user.mailboxSettings.timeZone);
     ```
 
 1. Save all of your changes, build the app, then run it. Choose the **List calendar events** option to see a list of the user's events.
