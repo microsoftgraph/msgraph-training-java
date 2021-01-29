@@ -144,7 +144,7 @@ public class App {
 
     // <CreateEventSnippet>
     private static void createEvent(String accessToken, String timeZone, Scanner input) {
-        DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("M/d/yyyy h:mm a");
+        DateTimeFormatter inputFormat = new DateTimeFormatterBuilder().appendPattern("yyyy-MM-dd HH:mm").toFormatter();
 
         // Prompt for subject
         String subject = "";
@@ -156,7 +156,7 @@ public class App {
         // Prompt for start date/time
         LocalDateTime start = null;
         while (start == null) {
-            System.out.print("Start (mm/dd/yyyy hh:mm AM/PM): ");
+            System.out.print("Start (yyyy-MM-dd HH:mm): ");
             String date = input.nextLine();
 
             try {
@@ -169,7 +169,7 @@ public class App {
         // Prompt for end date/time
         LocalDateTime end = null;
         while (end == null) {
-            System.out.print("End (mm/dd/yyyy hh:mm AM/PM): ");
+            System.out.print("End (yyyy-MM-dd HH:mm): ");
             String date = input.nextLine();
 
             try {
