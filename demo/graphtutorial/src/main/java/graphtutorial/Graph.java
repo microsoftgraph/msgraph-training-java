@@ -3,6 +3,7 @@
 
 package graphtutorial;
 
+import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -10,51 +11,71 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
+import okhttp3.Request;
+
+import com.azure.identity.DeviceCodeCredential;
+import com.azure.identity.DeviceCodeCredentialBuilder;
+
+import com.microsoft.graph.authentication.TokenCredentialAuthProvider;
 import com.microsoft.graph.logger.DefaultLogger;
 import com.microsoft.graph.logger.LoggerLevel;
-import com.microsoft.graph.models.extensions.Attendee;
-import com.microsoft.graph.models.extensions.DateTimeTimeZone;
-import com.microsoft.graph.models.extensions.EmailAddress;
-import com.microsoft.graph.models.extensions.Event;
-import com.microsoft.graph.models.extensions.IGraphServiceClient;
-import com.microsoft.graph.models.extensions.ItemBody;
-import com.microsoft.graph.models.extensions.User;
-import com.microsoft.graph.models.generated.AttendeeType;
-import com.microsoft.graph.models.generated.BodyType;
+import com.microsoft.graph.models.Attendee;
+import com.microsoft.graph.models.DateTimeTimeZone;
+import com.microsoft.graph.models.EmailAddress;
+import com.microsoft.graph.models.Event;
+import com.microsoft.graph.models.ItemBody;
+import com.microsoft.graph.models.User;
+import com.microsoft.graph.models.AttendeeType;
+import com.microsoft.graph.models.BodyType;
 import com.microsoft.graph.options.HeaderOption;
 import com.microsoft.graph.options.Option;
 import com.microsoft.graph.options.QueryOption;
-import com.microsoft.graph.requests.extensions.GraphServiceClient;
-import com.microsoft.graph.requests.extensions.IEventCollectionPage;
-import com.microsoft.graph.requests.extensions.IEventCollectionRequestBuilder;
+import com.microsoft.graph.requests.GraphServiceClient;
+import com.microsoft.graph.requests.EventCollectionPage;
+import com.microsoft.graph.requests.EventCollectionRequestBuilder;
 
 /**
  * Graph
  */
 public class Graph {
 
-    private static IGraphServiceClient graphClient = null;
-    private static SimpleAuthProvider authProvider = null;
+    private static GraphServiceClient<Request> graphClient = null;
+    private static TokenCredentialAuthProvider authProvider = null;
 
-    private static void ensureGraphClient(String accessToken) {
-        if (graphClient == null) {
-            // Create the auth provider
-            authProvider = new SimpleAuthProvider(accessToken);
+    public static void initializeGraphAuth(String applicationId, List<String> scopes) {
+        // Create the auth provider
+        final DeviceCodeCredential credential = new DeviceCodeCredentialBuilder()
+            .clientId(applicationId)
+            .challengeConsumer(challenge -> System.out.println(challenge.getMessage()))
+            .build();
 
-            // Create default logger to only log errors
-            DefaultLogger logger = new DefaultLogger();
-            logger.setLoggingLevel(LoggerLevel.ERROR);
+        authProvider = new TokenCredentialAuthProvider(scopes, credential);
 
-            // Build a Graph client
-            graphClient = GraphServiceClient.builder()
-                .authenticationProvider(authProvider)
-                .logger(logger)
-                .buildClient();
+        // Create default logger to only log errors
+        DefaultLogger logger = new DefaultLogger();
+        logger.setLoggingLevel(LoggerLevel.ERROR);
+
+        // Build a Graph client
+        graphClient = GraphServiceClient.builder()
+            .authenticationProvider(authProvider)
+            .logger(logger)
+            .buildClient();
+    }
+
+    public static String getUserAccessToken()
+    {
+        try {
+            URL meUrl = new URL("https://graph.microsoft.com/v1.0/me");
+            return authProvider.getAuthorizationTokenAsync(meUrl).get();
+        } catch(Exception ex) {
+            return null;
         }
     }
 
-    public static User getUser(String accessToken) {
-        ensureGraphClient(accessToken);
+    // <GetUserSnippet>
+    public static User getUser() {
+        if (graphClient == null) throw new NullPointerException(
+            "Graph client has not been initialized. Call initializeGraphAuth before calling this method");
 
         // GET /me to get authenticated user
         User me = graphClient
@@ -65,11 +86,13 @@ public class Graph {
 
         return me;
     }
+    // </GetUserSnippet>
 
     // <GetEventsSnippet>
-    public static List<Event> getCalendarView(String accessToken,
+    public static List<Event> getCalendarView(
         ZonedDateTime viewStart, ZonedDateTime viewEnd, String timeZone) {
-        ensureGraphClient(accessToken);
+        if (graphClient == null) throw new NullPointerException(
+            "Graph client has not been initialized. Call initializeGraphAuth before calling this method");
 
         List<Option> options = new LinkedList<Option>();
         options.add(new QueryOption("startDateTime", viewStart.format(DateTimeFormatter.ISO_OFFSET_DATE_TIME)));
@@ -81,7 +104,7 @@ public class Graph {
         options.add(new HeaderOption("Prefer", "outlook.timezone=\"" + timeZone + "\""));
 
         // GET /me/events
-        IEventCollectionPage eventPage = graphClient
+        EventCollectionPage eventPage = graphClient
             .me()
             .calendarView()
             .buildRequest(options)
@@ -100,7 +123,7 @@ public class Graph {
         while (eventPage != null) {
             allEvents.addAll(eventPage.getCurrentPage());
 
-            IEventCollectionRequestBuilder nextPage =
+            EventCollectionRequestBuilder nextPage =
                 eventPage.getNextPage();
 
             if (nextPage == null) {
@@ -118,7 +141,6 @@ public class Graph {
 
     // <CreateEventSnippet>
     public static void createEvent(
-        String accessToken,
         String timeZone,
         String subject,
         LocalDateTime start,
@@ -126,7 +148,8 @@ public class Graph {
         Set<String> attendees,
         String body)
     {
-        ensureGraphClient(accessToken);
+        if (graphClient == null) throw new NullPointerException(
+            "Graph client has not been initialized. Call initializeGraphAuth before calling this method");
 
         Event newEvent = new Event();
 

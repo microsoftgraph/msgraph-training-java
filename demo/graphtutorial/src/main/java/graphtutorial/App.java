@@ -13,15 +13,16 @@ import java.time.format.DateTimeParseException;
 import java.time.format.FormatStyle;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAdjusters;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Properties;
 import java.util.Scanner;
 
-import com.microsoft.graph.models.extensions.DateTimeTimeZone;
-import com.microsoft.graph.models.extensions.Event;
-import com.microsoft.graph.models.extensions.User;
+import com.microsoft.graph.models.DateTimeTimeZone;
+import com.microsoft.graph.models.Event;
+import com.microsoft.graph.models.User;
 
 /**
  * Graph Tutorial
@@ -43,15 +44,16 @@ public class App {
         }
 
         final String appId = oAuthProperties.getProperty("app.id");
-        final String[] appScopes = oAuthProperties.getProperty("app.scopes").split(",");
+        final List<String> appScopes = Arrays
+            .asList(oAuthProperties.getProperty("app.scopes").split(","));
         // </LoadSettingsSnippet>
 
-        // Get an access token
-        Authentication.initialize(appId);
-        final String accessToken = Authentication.getUserAccessToken(appScopes);
+        // Initialize Graph with auth settings
+        Graph.initializeGraphAuth(appId, appScopes);
+        final String accessToken = Graph.getUserAccessToken();
 
         // Greet the user
-        User user = Graph.getUser(accessToken);
+        User user = Graph.getUser();
         System.out.println("Welcome " + user.displayName);
         System.out.println("Time zone: " + user.mailboxSettings.timeZone);
         System.out.println();
@@ -87,11 +89,11 @@ public class App {
                     break;
                 case 2:
                     // List the calendar
-                    listCalendarEvents(accessToken, user.mailboxSettings.timeZone);
+                    listCalendarEvents(user.mailboxSettings.timeZone);
                     break;
                 case 3:
                     // Create a new event
-                    createEvent(accessToken, user.mailboxSettings.timeZone, input);
+                    createEvent(user.mailboxSettings.timeZone, input);
                     break;
                 default:
                     System.out.println("Invalid choice");
@@ -112,7 +114,7 @@ public class App {
     // </FormatDateSnippet>
 
     // <ListEventsSnippet>
-    private static void listCalendarEvents(String accessToken, String timeZone) {
+    private static void listCalendarEvents(String timeZone) {
         ZoneId tzId = GraphToIana.getZoneIdFromWindows("Pacific Standard Time");
 
         // Get midnight of the first day of the week (assumed Sunday)
@@ -126,7 +128,7 @@ public class App {
         ZonedDateTime endOfWeek = startOfWeek.plusDays(7);
 
         // Get the user's events
-        List<Event> events = Graph.getCalendarView(accessToken,
+        List<Event> events = Graph.getCalendarView(
             startOfWeek, endOfWeek, timeZone);
 
         System.out.println("Events:");
@@ -143,7 +145,7 @@ public class App {
     // </ListEventsSnippet>
 
     // <CreateEventSnippet>
-    private static void createEvent(String accessToken, String timeZone, Scanner input) {
+    private static void createEvent(String timeZone, Scanner input) {
         DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("M/d/yyyy h:mm a");
 
         // Prompt for subject
@@ -218,7 +220,7 @@ public class App {
 
         System.out.print("Is this correct? (y/n): ");
         if (input.nextLine().trim().toLowerCase().startsWith("y")) {
-            Graph.createEvent(accessToken, timeZone, subject, start, end, attendees, body);
+            Graph.createEvent(timeZone, subject, start, end, attendees, body);
             System.out.println("Event created.");
         } else {
             System.out.println("Canceling.");

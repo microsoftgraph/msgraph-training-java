@@ -2,97 +2,23 @@
 
 In this exercise you will incorporate the Microsoft Graph into the application. For this application, you will use the [Microsoft Graph SDK for Java](https://github.com/microsoftgraph/msgraph-sdk-java) to make calls to Microsoft Graph.
 
-## Implement an authentication provider
-
-The Microsoft Graph SDK for Java requires an implementation of the `IAuthenticationProvider` interface to instantiate its `GraphServiceClient` object.
-
-1. Create a new file in the **./graphtutorial/src/main/java/graphtutorial** directory named **SimpleAuthProvider.java** and add the following code.
-
-    :::code language="java" source="../demo/graphtutorial/src/main/java/graphtutorial/SimpleAuthProvider.java" id="AuthProviderSnippet":::
-
 ## Get user details
 
 1. Create a new file in the **./graphtutorial/src/main/java/graphtutorial** directory named **Graph.java** and add the following code.
 
-    ```java
-    package graphtutorial;
-
-    import java.time.LocalDateTime;
-    import java.time.ZonedDateTime;
-    import java.time.format.DateTimeFormatter;
-    import java.util.LinkedList;
-    import java.util.List;
-    import java.util.Set;
-
-    import com.microsoft.graph.logger.DefaultLogger;
-    import com.microsoft.graph.logger.LoggerLevel;
-    import com.microsoft.graph.models.extensions.Attendee;
-    import com.microsoft.graph.models.extensions.DateTimeTimeZone;
-    import com.microsoft.graph.models.extensions.EmailAddress;
-    import com.microsoft.graph.models.extensions.Event;
-    import com.microsoft.graph.models.extensions.IGraphServiceClient;
-    import com.microsoft.graph.models.extensions.ItemBody;
-    import com.microsoft.graph.models.extensions.User;
-    import com.microsoft.graph.models.generated.AttendeeType;
-    import com.microsoft.graph.models.generated.BodyType;
-    import com.microsoft.graph.options.HeaderOption;
-    import com.microsoft.graph.options.Option;
-    import com.microsoft.graph.options.QueryOption;
-    import com.microsoft.graph.requests.extensions.GraphServiceClient;
-    import com.microsoft.graph.requests.extensions.IEventCollectionPage;
-    import com.microsoft.graph.requests.extensions.IEventCollectionRequestBuilder;
-
-    /**
-     * Graph
-     */
-    public class Graph {
-
-        private static IGraphServiceClient graphClient = null;
-        private static SimpleAuthProvider authProvider = null;
-
-        private static void ensureGraphClient(String accessToken) {
-            if (graphClient == null) {
-                // Create the auth provider
-                authProvider = new SimpleAuthProvider(accessToken);
-
-                // Create default logger to only log errors
-                DefaultLogger logger = new DefaultLogger();
-                logger.setLoggingLevel(LoggerLevel.ERROR);
-
-                // Build a Graph client
-                graphClient = GraphServiceClient.builder()
-                    .authenticationProvider(authProvider)
-                    .logger(logger)
-                    .buildClient();
-            }
-        }
-
-        public static User getUser(String accessToken) {
-            ensureGraphClient(accessToken);
-
-            // GET /me to get authenticated user
-            User me = graphClient
-                .me()
-                .buildRequest()
-                .select("displayName,mailboxSettings")
-                .get();
-
-            return me;
-        }
-    }
-    ```
+    :::code language="java" source="../demo/graphtutorial/src/main/java/graphtutorial/Graph.java" id="GetUserSnippet":::
 
 1. Add the following `import` statement at the top of **App.java**.
 
     ```java
-    import com.microsoft.graph.models.extensions.User;
+    import com.microsoft.graph.models.User;
     ```
 
 1. Add the following code in **App.java** just before the `Scanner input = new Scanner(System.in);` line to get the user and output the user's display name.
 
     ```java
     // Greet the user
-    User user = Graph.getUser(accessToken);
+    User user = Graph.getUser();
     System.out.println("Welcome " + user.displayName);
     System.out.println("Time zone: " + user.mailboxSettings.timeZone);
     System.out.println();
@@ -138,8 +64,8 @@ Consider what this code is doing.
     import java.time.temporal.TemporalAdjusters;
     import java.util.HashSet;
     import java.util.List;
-    import com.microsoft.graph.models.extensions.DateTimeTimeZone;
-    import com.microsoft.graph.models.extensions.Event;
+    import com.microsoft.graph.models.DateTimeTimeZone;
+    import com.microsoft.graph.models.Event;
     ```
 
 1. Add the following function to the `App` class to format the [dateTimeTimeZone](/graph/api/resources/datetimetimezone?view=graph-rest-1.0) properties from Microsoft Graph into a user-friendly format.
@@ -153,7 +79,7 @@ Consider what this code is doing.
 1. Add the following just after the `// List the calendar` comment in the `main` function.
 
     ```java
-    listCalendarEvents(accessToken, user.mailboxSettings.timeZone);
+    listCalendarEvents(user.mailboxSettings.timeZone);
     ```
 
 1. Save all of your changes, build the app, then run it. Choose the **List calendar events** option to see a list of the user's events.
