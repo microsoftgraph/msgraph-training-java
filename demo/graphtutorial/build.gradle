@@ -27,8 +27,8 @@ dependencies {
 
     // Use JUnit test framework
     testImplementation 'junit:junit:4.12'
-    implementation 'com.azure:azure-identity:1.2.3'
-    implementation 'com.microsoft.graph:microsoft-graph:3.0.0'
+    implementation 'com.azure:azure-identity:1.2.5'
+    implementation 'com.microsoft.graph:microsoft-graph:3.2.0'
 }
 // </DependenciesSnippet>
 
