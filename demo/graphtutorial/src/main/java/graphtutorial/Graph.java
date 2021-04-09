@@ -42,7 +42,6 @@ public class Graph {
     private static GraphServiceClient<Request> graphClient = null;
     private static TokenCredentialAuthProvider authProvider = null;
 
-    @SuppressWarnings("unchecked")
     public static void initializeGraphAuth(String applicationId, List<String> scopes) {
         // Create the auth provider
         final DeviceCodeCredential credential = new DeviceCodeCredentialBuilder()
@@ -87,7 +86,7 @@ public class Graph {
 
         return me;
     }
-    // <GetUserSnippet>
+    // </GetUserSnippet>
 
     // <GetEventsSnippet>
     public static List<Event> getCalendarView(
