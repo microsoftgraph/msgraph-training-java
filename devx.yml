@@ -1,0 +1,8 @@
+languages:
+- java
+extensions:
+  services:
+  - Outlook
+  - Office 365
+  - Microsoft identity platform
+dependencyFile: /demo/graphtutorial/build.gradle
