@@ -46,6 +46,7 @@ public class Graph {
         // Create the auth provider
         final DeviceCodeCredential credential = new DeviceCodeCredentialBuilder()
             .clientId(applicationId)
+            .tenantId("common")
             .challengeConsumer(challenge -> System.out.println(challenge.getMessage()))
             .build();
 
