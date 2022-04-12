@@ -14,9 +14,9 @@ import java.util.Scanner;
 
 import com.microsoft.graph.models.Message;
 import com.microsoft.graph.models.User;
-// </ImportSnippet>
 import com.microsoft.graph.requests.MessageCollectionPage;
 import com.microsoft.graph.requests.UserCollectionPage;
+// </ImportSnippet>
 
 public class App {
     // <MainSnippet>
