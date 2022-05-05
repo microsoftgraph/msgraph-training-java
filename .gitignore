@@ -16,3 +16,4 @@ bin/
 .vscode/
 
 oauth.properties
+*.zip

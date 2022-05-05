@@ -1,0 +1,7 @@
+{
+    "sourceDirectory": "./demo",
+    "exampleConfigFile": "./graphtutorial/app/src/main/resources/oAuth.properties.example",
+    "configFile": "oAuth.properties",
+    "archiveFile": "JavaQuickStart.zip",
+    "zipReadMe": "./README.md"
+}
