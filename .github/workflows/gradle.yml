@@ -18,6 +18,9 @@ permissions:
 
 jobs:
   build:
+    defaults:
+      run:
+        working-directory: demo/graphtutorial
 
     runs-on: ubuntu-latest
 
