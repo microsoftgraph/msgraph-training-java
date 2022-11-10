@@ -143,9 +143,6 @@ public class Graph {
     // <MakeGraphCallSnippet>
     public static void makeGraphCall() {
         // INSERT YOUR CODE HERE
-        // Note: if using _appClient, be sure to call ensureGraphForAppOnlyAuth
-        // before using it.
-        // ensureGraphForAppOnlyAuth();
     }
     // </MakeGraphCallSnippet>
 }

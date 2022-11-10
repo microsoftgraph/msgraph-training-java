@@ -6,13 +6,11 @@ package graphapponlytutorial;
 
 import java.util.List;
 import java.util.Properties;
-import java.util.function.Consumer;
 
 import com.azure.core.credential.AccessToken;
 import com.azure.core.credential.TokenRequestContext;
 import com.azure.identity.ClientSecretCredential;
 import com.azure.identity.ClientSecretCredentialBuilder;
-import com.azure.identity.DeviceCodeInfo;
 import com.microsoft.graph.authentication.TokenCredentialAuthProvider;
 import com.microsoft.graph.requests.GraphServiceClient;
 import com.microsoft.graph.requests.UserCollectionPage;
@@ -26,7 +24,7 @@ public class Graph {
     private static ClientSecretCredential _clientSecretCredential;
     private static GraphServiceClient<Request> _appClient;
 
-    public static void initializeGraphForAppOnlyAuth(Properties properties, Consumer<DeviceCodeInfo> challenge) throws Exception {
+    public static void initializeGraphForAppOnlyAuth(Properties properties) throws Exception {
         // Ensure properties isn't null
         if (properties == null) {
             throw new Exception("Properties cannot be null");

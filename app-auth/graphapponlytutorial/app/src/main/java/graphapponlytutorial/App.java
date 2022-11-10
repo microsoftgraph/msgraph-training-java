@@ -78,8 +78,7 @@ public class App {
     // <InitializeGraphSnippet>
     private static void initializeGraph(Properties properties) {
         try {
-            Graph.initializeGraphForAppOnlyAuth(properties,
-                challenge -> System.out.println(challenge.getMessage()));
+            Graph.initializeGraphForAppOnlyAuth(properties);
         } catch (Exception e)
         {
             System.out.println("Error initializing Graph for user auth");
