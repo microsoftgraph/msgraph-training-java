@@ -15,7 +15,6 @@ import java.util.Scanner;
 import com.microsoft.graph.models.Message;
 import com.microsoft.graph.models.User;
 import com.microsoft.graph.requests.MessageCollectionPage;
-import com.microsoft.graph.requests.UserCollectionPage;
 // </ImportSnippet>
 
 public class App {
@@ -46,8 +45,7 @@ public class App {
             System.out.println("1. Display access token");
             System.out.println("2. List my inbox");
             System.out.println("3. Send mail");
-            System.out.println("4. List users (required app-only)");
-            System.out.println("5. Make a Graph call");
+            System.out.println("4. Make a Graph call");
 
             try {
                 choice = input.nextInt();
@@ -76,10 +74,6 @@ public class App {
                     sendMail();
                     break;
                 case 4:
-                    // List users
-                    listUsers();
-                    break;
-                case 5:
                     // Run any Graph code
                     makeGraphCall();
                     break;
@@ -174,27 +168,6 @@ public class App {
         }
     }
     // </SendMailSnippet>
-
-    // <ListUsersSnippet>
-    private static void listUsers() {
-        try {
-            final UserCollectionPage users = Graph.getUsers();
-
-            // Output each user's details
-            for (User user: users.getCurrentPage()) {
-                System.out.println("User: " + user.displayName);
-                System.out.println("  ID: " + user.id);
-                System.out.println("  Email: " + user.mail);
-            }
-
-            final Boolean moreUsersAvailable = users.getNextPage() != null;
-            System.out.println("\nMore users available? " + moreUsersAvailable);
-        } catch (Exception e) {
-            System.out.println("Error getting users");
-            System.out.println(e.getMessage());
-        }
-    }
-    // </ListUsersSnippet>
 
     // <MakeGraphCallSnippet>
     private static void makeGraphCall() {
