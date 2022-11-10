@@ -10,7 +10,7 @@ assignees: ''
 
 - [ ] Downloaded from GitHub
 - [ ] Downloaded from the [Microsoft Graph quick start tool](https://developer.microsoft.com/graph/quick-start)
-- [ ] Followed the tutorial from [Microsoft Graph tutorials](https://docs.microsoft.com/graph/tutorials)
+- [ ] Followed the tutorial from [Microsoft Graph tutorials](https://learn.microsoft.com/graph/tutorials)
 
 ### Describe the bug
 

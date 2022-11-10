@@ -2,7 +2,7 @@
 
 [![Java CI with Gradle](https://github.com/microsoftgraph/msgraph-training-java/actions/workflows/gradle.yml/badge.svg)](https://github.com/microsoftgraph/msgraph-training-java/actions/workflows/gradle.yml) ![License.](https://img.shields.io/badge/license-MIT-green.svg)
 
-This sample will introduce you to working with the Microsoft Graph SDK to access data in Microsoft 365 from Java applications. This code is the result of completing the [Java Microsoft Graph tutorial](https://docs.microsoft.com/graph/tutorials/java) and the [Java Microsoft Graph app-only tutorial](https://docs.microsoft.com/graph/tutorials/java-app-only).
+This sample will introduce you to working with the Microsoft Graph SDK to access data in Microsoft 365 from Java applications. This code is the result of completing the [Java Microsoft Graph tutorial](https://learn.microsoft.com/graph/tutorials/java) and the [Java Microsoft Graph app-only tutorial](https://learn.microsoft.com/graph/tutorials/java-app-only).
 
 ## Running the sample
 
