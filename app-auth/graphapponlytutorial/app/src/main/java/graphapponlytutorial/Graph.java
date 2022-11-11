@@ -47,6 +47,7 @@ public class Graph {
         if (_appClient == null) {
             final TokenCredentialAuthProvider authProvider =
                 new TokenCredentialAuthProvider(
+                    // Use the .default scope when using app-only auth
                     List.of("https://graph.microsoft.com/.default"), _clientSecretCredential);
 
             _appClient = GraphServiceClient.builder()
@@ -63,6 +64,7 @@ public class Graph {
             throw new Exception("Graph has not been initialized for app-only auth");
         }
 
+        // Request the .default scope as required by app-only auth
         final String[] graphScopes = new String[] {"https://graph.microsoft.com/.default"};
 
         final TokenRequestContext context = new TokenRequestContext();
