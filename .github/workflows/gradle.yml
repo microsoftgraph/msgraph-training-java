@@ -33,7 +33,7 @@ jobs:
     - name: Build user app with Gradle
       uses: gradle/gradle-build-action@0d13054264b0bb894ded474f08ebb30921341cee
       with:
-        build-root-directory: user-app/graphtutorial
+        build-root-directory: user-auth/graphtutorial
         arguments: build
     - name: Make app-only app gradlew executable
       run: chmod +x ./app-auth/graphapponlytutorial/gradlew
