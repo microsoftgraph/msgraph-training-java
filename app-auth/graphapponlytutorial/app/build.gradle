@@ -22,15 +22,15 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
 
     // This dependency is used by the application.
-    implementation 'com.google.guava:guava:30.1.1-jre'
-    implementation 'com.azure:azure-identity:1.5.0'
-    implementation 'com.microsoft.graph:microsoft-graph:5.22.0'
+    implementation 'com.google.guava:guava:31.1-jre'
+    implementation 'com.azure:azure-identity:1.7.1'
+    implementation 'com.microsoft.graph:microsoft-graph:5.42.0'
 }
 // </DependenciesSnippet>
 
 application {
     // Define the main class for the application.
-    mainClass = 'graphtutorial.App'
+    mainClass = 'graphapponlytutorial.App'
 }
 
 // <StandardInputSnippet>

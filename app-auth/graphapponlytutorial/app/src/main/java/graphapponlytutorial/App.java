@@ -2,26 +2,21 @@
 // Licensed under the MIT license.
 
 // <ImportSnippet>
-package graphtutorial;
+package graphapponlytutorial;
 
 import java.io.IOException;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
 import java.util.InputMismatchException;
 import java.util.Properties;
 import java.util.Scanner;
 
-import com.microsoft.graph.models.Message;
 import com.microsoft.graph.models.User;
-import com.microsoft.graph.requests.MessageCollectionPage;
 import com.microsoft.graph.requests.UserCollectionPage;
 // </ImportSnippet>
 
 public class App {
     // <MainSnippet>
     public static void main(String[] args) {
-        System.out.println("Java Graph Tutorial");
+        System.out.println("Java App-Only Graph Tutorial");
         System.out.println();
 
         final Properties oAuthProperties = new Properties();
@@ -34,8 +29,6 @@ public class App {
 
         initializeGraph(oAuthProperties);
 
-        greetUser();
-
         Scanner input = new Scanner(System.in);
 
         int choice = -1;
@@ -44,10 +37,8 @@ public class App {
             System.out.println("Please choose one of the following options:");
             System.out.println("0. Exit");
             System.out.println("1. Display access token");
-            System.out.println("2. List my inbox");
-            System.out.println("3. Send mail");
-            System.out.println("4. List users (required app-only)");
-            System.out.println("5. Make a Graph call");
+            System.out.println("2. List users");
+            System.out.println("3. Make a Graph call");
 
             try {
                 choice = input.nextInt();
@@ -68,18 +59,10 @@ public class App {
                     displayAccessToken();
                     break;
                 case 2:
-                    // List emails from user's inbox
-                    listInbox();
-                    break;
-                case 3:
-                    // Send an email message
-                    sendMail();
-                    break;
-                case 4:
                     // List users
                     listUsers();
                     break;
-                case 5:
+                case 3:
                     // Run any Graph code
                     makeGraphCall();
                     break;
@@ -95,8 +78,7 @@ public class App {
     // <InitializeGraphSnippet>
     private static void initializeGraph(Properties properties) {
         try {
-            Graph.initializeGraphForUserAuth(properties,
-                challenge -> System.out.println(challenge.getMessage()));
+            Graph.initializeGraphForAppOnlyAuth(properties);
         } catch (Exception e)
         {
             System.out.println("Error initializing Graph for user auth");
@@ -105,26 +87,10 @@ public class App {
     }
     // </InitializeGraphSnippet>
 
-    // <GreetUserSnippet>
-    private static void greetUser() {
-        try {
-            final User user = Graph.getUser();
-            // For Work/school accounts, email is in mail property
-            // Personal accounts, email is in userPrincipalName
-            final String email = user.mail == null ? user.userPrincipalName : user.mail;
-            System.out.println("Hello, " + user.displayName + "!");
-            System.out.println("Email: " + email);
-        } catch (Exception e) {
-            System.out.println("Error getting user");
-            System.out.println(e.getMessage());
-        }
-    }
-    // </GreetUserSnippet>
-
     // <DisplayAccessTokenSnippet>
     private static void displayAccessToken() {
         try {
-            final String accessToken = Graph.getUserToken();
+            final String accessToken = Graph.getAppOnlyToken();
             System.out.println("Access token: " + accessToken);
         } catch (Exception e) {
             System.out.println("Error getting access token");
@@ -132,48 +98,6 @@ public class App {
         }
     }
     // </DisplayAccessTokenSnippet>
-
-    // <ListInboxSnippet>
-    private static void listInbox() {
-        try {
-            final MessageCollectionPage messages = Graph.getInbox();
-
-            // Output each message's details
-            for (Message message: messages.getCurrentPage()) {
-                System.out.println("Message: " + message.subject);
-                System.out.println("  From: " + message.from.emailAddress.name);
-                System.out.println("  Status: " + (message.isRead ? "Read" : "Unread"));
-                System.out.println("  Received: " + message.receivedDateTime
-                    // Values are returned in UTC, convert to local time zone
-                    .atZoneSameInstant(ZoneId.systemDefault()).toLocalDateTime()
-                    .format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT)));
-            }
-
-            final Boolean moreMessagesAvailable = messages.getNextPage() != null;
-            System.out.println("\nMore messages available? " + moreMessagesAvailable);
-        } catch (Exception e) {
-            System.out.println("Error getting inbox");
-            System.out.println(e.getMessage());
-        }
-    }
-    // </ListInboxSnippet>
-
-    // <SendMailSnippet>
-    private static void sendMail() {
-        try {
-            // Send mail to the signed-in user
-            // Get the user for their email address
-            final User user = Graph.getUser();
-            final String email = user.mail == null ? user.userPrincipalName : user.mail;
-
-            Graph.sendMail("Testing Microsoft Graph", "Hello world!", email);
-            System.out.println("\nMail sent.");
-        } catch (Exception e) {
-            System.out.println("Error sending mail");
-            System.out.println(e.getMessage());
-        }
-    }
-    // </SendMailSnippet>
 
     // <ListUsersSnippet>
     private static void listUsers() {

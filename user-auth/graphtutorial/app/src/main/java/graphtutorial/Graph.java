@@ -11,8 +11,6 @@ import java.util.function.Consumer;
 
 import com.azure.core.credential.AccessToken;
 import com.azure.core.credential.TokenRequestContext;
-import com.azure.identity.ClientSecretCredential;
-import com.azure.identity.ClientSecretCredentialBuilder;
 import com.azure.identity.DeviceCodeCredential;
 import com.azure.identity.DeviceCodeCredentialBuilder;
 import com.azure.identity.DeviceCodeInfo;
@@ -26,7 +24,6 @@ import com.microsoft.graph.models.User;
 import com.microsoft.graph.models.UserSendMailParameterSet;
 import com.microsoft.graph.requests.GraphServiceClient;
 import com.microsoft.graph.requests.MessageCollectionPage;
-import com.microsoft.graph.requests.UserCollectionPage;
 
 import okhttp3.Request;
 // </ImportSnippet>
@@ -46,13 +43,13 @@ public class Graph {
         _properties = properties;
 
         final String clientId = properties.getProperty("app.clientId");
-        final String authTenantId = properties.getProperty("app.authTenant");
+        final String tenantId = properties.getProperty("app.tenantId");
         final List<String> graphUserScopes = Arrays
             .asList(properties.getProperty("app.graphUserScopes").split(","));
 
         _deviceCodeCredential = new DeviceCodeCredentialBuilder()
             .clientId(clientId)
-            .tenantId(authTenantId)
+            .tenantId(tenantId)
             .challengeConsumer(challenge)
             .build();
 
@@ -143,59 +140,9 @@ public class Graph {
     }
     // </SendMailSnippet>
 
-    // <AppOnyAuthConfigSnippet>
-    private static ClientSecretCredential _clientSecretCredential;
-    private static GraphServiceClient<Request> _appClient;
-
-    private static void ensureGraphForAppOnlyAuth() throws Exception {
-        // Ensure _properties isn't null
-        if (_properties == null) {
-            throw new Exception("Properties cannot be null");
-        }
-
-        if (_clientSecretCredential == null) {
-            final String clientId = _properties.getProperty("app.clientId");
-            final String tenantId = _properties.getProperty("app.tenantId");
-            final String clientSecret = _properties.getProperty("app.clientSecret");
-
-            _clientSecretCredential = new ClientSecretCredentialBuilder()
-                .clientId(clientId)
-                .tenantId(tenantId)
-                .clientSecret(clientSecret)
-                .build();
-        }
-
-        if (_appClient == null) {
-            final TokenCredentialAuthProvider authProvider =
-                new TokenCredentialAuthProvider(
-                    List.of("https://graph.microsoft.com/.default"), _clientSecretCredential);
-
-            _appClient = GraphServiceClient.builder()
-                .authenticationProvider(authProvider)
-                .buildClient();
-        }
-    }
-    // </AppOnyAuthConfigSnippet>
-
-    // <GetUsersSnippet>
-    public static UserCollectionPage getUsers() throws Exception {
-        ensureGraphForAppOnlyAuth();
-
-        return _appClient.users()
-            .buildRequest()
-            .select("displayName,id,mail")
-            .top(25)
-            .orderBy("displayName")
-            .get();
-    }
-    // </GetUsersSnippet>
-
     // <MakeGraphCallSnippet>
     public static void makeGraphCall() {
         // INSERT YOUR CODE HERE
-        // Note: if using _appClient, be sure to call ensureGraphForAppOnlyAuth
-        // before using it.
-        // ensureGraphForAppOnlyAuth();
     }
     // </MakeGraphCallSnippet>
 }
