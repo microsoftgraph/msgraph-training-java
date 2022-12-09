@@ -1,0 +1,3 @@
+app.clientId=YOUR_CLIENT_ID_HERE
+app.tenantId=common
+app.graphUserScopes=user.read,mail.read,mail.send
