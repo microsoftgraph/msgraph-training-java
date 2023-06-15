@@ -64,7 +64,7 @@ To use PowerShell, you'll need the Microsoft Graph PowerShell SDK. If you do not
 
 ## Configure the sample
 
-1. Rename [oAuth.properties.example](./graphtutorial/app/src/main/resources/graphtutorial/oAuth.properties.example) to `oauthProperties` and update the values according to the following table.
+1. Rename [oAuth.properties.example](./graphtutorial/app/src/main/resources/graphtutorial/oAuth.properties.example) to `oauth.Properties` and update the values according to the following table.
 
     | Setting | Value |
     |---------|-------|
