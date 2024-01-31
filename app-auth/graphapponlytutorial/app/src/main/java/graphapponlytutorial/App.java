@@ -10,8 +10,8 @@ import java.util.Properties;
 import java.util.Scanner;
 
 import com.microsoft.graph.models.User;
-import com.microsoft.graph.requests.UserCollectionPage;
 // </ImportSnippet>
+import com.microsoft.graph.models.UserCollectionResponse;
 
 public class App {
     // <MainSnippet>
@@ -102,16 +102,16 @@ public class App {
     // <ListUsersSnippet>
     private static void listUsers() {
         try {
-            final UserCollectionPage users = Graph.getUsers();
+            final UserCollectionResponse users = Graph.getUsers();
 
             // Output each user's details
-            for (User user: users.getCurrentPage()) {
-                System.out.println("User: " + user.displayName);
-                System.out.println("  ID: " + user.id);
-                System.out.println("  Email: " + user.mail);
+            for (User user: users.getValue()) {
+                System.out.println("User: " + user.getDisplayName());
+                System.out.println("  ID: " + user.getId());
+                System.out.println("  Email: " + user.getMail());
             }
 
-            final Boolean moreUsersAvailable = users.getNextPage() != null;
+            final Boolean moreUsersAvailable = users.getOdataNextLink() != null;
             System.out.println("\nMore users available? " + moreUsersAvailable);
         } catch (Exception e) {
             System.out.println("Error getting users");

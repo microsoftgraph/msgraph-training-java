@@ -4,25 +4,21 @@
 // <ImportSnippet>
 package graphapponlytutorial;
 
-import java.util.List;
 import java.util.Properties;
 
 import com.azure.core.credential.AccessToken;
 import com.azure.core.credential.TokenRequestContext;
 import com.azure.identity.ClientSecretCredential;
 import com.azure.identity.ClientSecretCredentialBuilder;
-import com.microsoft.graph.authentication.TokenCredentialAuthProvider;
-import com.microsoft.graph.requests.GraphServiceClient;
-import com.microsoft.graph.requests.UserCollectionPage;
-
-import okhttp3.Request;
+import com.microsoft.graph.models.UserCollectionResponse;
+import com.microsoft.graph.serviceclient.GraphServiceClient;
 // </ImportSnippet>
 
 public class Graph {
     // <AppOnyAuthConfigSnippet>
     private static Properties _properties;
     private static ClientSecretCredential _clientSecretCredential;
-    private static GraphServiceClient<Request> _appClient;
+    private static GraphServiceClient _appClient;
 
     public static void initializeGraphForAppOnlyAuth(Properties properties) throws Exception {
         // Ensure properties isn't null
@@ -45,14 +41,8 @@ public class Graph {
         }
 
         if (_appClient == null) {
-            final TokenCredentialAuthProvider authProvider =
-                new TokenCredentialAuthProvider(
-                    // Use the .default scope when using app-only auth
-                    List.of("https://graph.microsoft.com/.default"), _clientSecretCredential);
-
-            _appClient = GraphServiceClient.builder()
-                .authenticationProvider(authProvider)
-                .buildClient();
+            _appClient = new GraphServiceClient(_clientSecretCredential,
+                    new String[] { "https://graph.microsoft.com/.default" });
         }
     }
     // </AppOnyAuthConfigSnippet>
@@ -76,18 +66,17 @@ public class Graph {
     // </GetAppOnlyTokenSnippet>
 
     // <GetUsersSnippet>
-    public static UserCollectionPage getUsers() throws Exception {
+    public static UserCollectionResponse getUsers() throws Exception {
         // Ensure client isn't null
         if (_appClient == null) {
             throw new Exception("Graph has not been initialized for app-only auth");
         }
 
-        return _appClient.users()
-            .buildRequest()
-            .select("displayName,id,mail")
-            .top(25)
-            .orderBy("displayName")
-            .get();
+        return _appClient.users().get(requestConfig -> {
+            requestConfig.queryParameters.select = new String[] { "displayName", "id", "mail" };
+            requestConfig.queryParameters.top = 25;
+            requestConfig.queryParameters.orderby = new String[] { "displayName" };
+        });
     }
     // </GetUsersSnippet>
 
