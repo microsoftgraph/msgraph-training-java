@@ -13,8 +13,8 @@ import java.util.Properties;
 import java.util.Scanner;
 
 import com.microsoft.graph.models.Message;
+import com.microsoft.graph.models.MessageCollectionResponse;
 import com.microsoft.graph.models.User;
-import com.microsoft.graph.requests.MessageCollectionPage;
 // </ImportSnippet>
 
 public class App {
@@ -105,8 +105,8 @@ public class App {
             final User user = Graph.getUser();
             // For Work/school accounts, email is in mail property
             // Personal accounts, email is in userPrincipalName
-            final String email = user.mail == null ? user.userPrincipalName : user.mail;
-            System.out.println("Hello, " + user.displayName + "!");
+            final String email = user.getMail() == null ? user.getUserPrincipalName() : user.getMail();
+            System.out.println("Hello, " + user.getDisplayName() + "!");
             System.out.println("Email: " + email);
         } catch (Exception e) {
             System.out.println("Error getting user");
@@ -130,20 +130,20 @@ public class App {
     // <ListInboxSnippet>
     private static void listInbox() {
         try {
-            final MessageCollectionPage messages = Graph.getInbox();
+            final MessageCollectionResponse messages = Graph.getInbox();
 
             // Output each message's details
-            for (Message message: messages.getCurrentPage()) {
-                System.out.println("Message: " + message.subject);
-                System.out.println("  From: " + message.from.emailAddress.name);
-                System.out.println("  Status: " + (message.isRead ? "Read" : "Unread"));
-                System.out.println("  Received: " + message.receivedDateTime
+            for (Message message: messages.getValue()) {
+                System.out.println("Message: " + message.getSubject());
+                System.out.println("  From: " + message.getFrom().getEmailAddress().getName());
+                System.out.println("  Status: " + (message.getIsRead() ? "Read" : "Unread"));
+                System.out.println("  Received: " + message.getReceivedDateTime()
                     // Values are returned in UTC, convert to local time zone
                     .atZoneSameInstant(ZoneId.systemDefault()).toLocalDateTime()
                     .format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT)));
             }
 
-            final Boolean moreMessagesAvailable = messages.getNextPage() != null;
+            final Boolean moreMessagesAvailable = messages.getOdataNextLink() != null;
             System.out.println("\nMore messages available? " + moreMessagesAvailable);
         } catch (Exception e) {
             System.out.println("Error getting inbox");
@@ -158,7 +158,7 @@ public class App {
             // Send mail to the signed-in user
             // Get the user for their email address
             final User user = Graph.getUser();
-            final String email = user.mail == null ? user.userPrincipalName : user.mail;
+            final String email = user.getMail() == null ? user.getUserPrincipalName() : user.getMail();
 
             Graph.sendMail("Testing Microsoft Graph", "Hello world!", email);
             System.out.println("\nMail sent.");

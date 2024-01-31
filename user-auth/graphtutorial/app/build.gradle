@@ -14,6 +14,7 @@ plugins {
 repositories {
     // Use Maven Central for resolving dependencies.
     mavenCentral()
+    maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
 }
 
 // <DependenciesSnippet>
@@ -24,7 +25,7 @@ dependencies {
     // This dependency is used by the application.
     implementation 'com.google.guava:guava:33.0.0-jre'
     implementation 'com.azure:azure-identity:1.11.1'
-    implementation 'com.microsoft.graph:microsoft-graph:5.80.0'
+    implementation 'com.microsoft.graph:microsoft-graph:6.0.2-SNAPSHOT'
 }
 // </DependenciesSnippet>
 
