@@ -24,7 +24,7 @@ dependencies {
     // This dependency is used by the application.
     implementation 'com.google.guava:guava:33.4.8-jre'
     implementation 'com.azure:azure-identity:1.17.0'
-    implementation 'com.microsoft.graph:microsoft-graph:6.52.0'
+    implementation 'com.microsoft.graph:microsoft-graph:6.53.0'
 }
 // </DependenciesSnippet>
 
